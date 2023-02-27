@@ -8,7 +8,7 @@ public record AccountDto(
         String id,
         BigDecimal balance,
         LocalDateTime creationDate,
-        CustomerDto owner,
+        CustomerDto customer,
         Set<TransactionDto> transactions
 ) {
 }

@@ -1,10 +1,8 @@
 package com.ncsgab.currentaccount.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 
@@ -13,7 +11,9 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = {"account"}, callSuper = true)
+@EntityListeners(AuditingEntityListener.class)
+@ToString(callSuper = true)
 public class Transaction extends BaseEntity<Long> {
 
     private BigDecimal amount;

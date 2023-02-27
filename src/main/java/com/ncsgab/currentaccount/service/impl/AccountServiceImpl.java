@@ -9,9 +9,11 @@ import com.ncsgab.currentaccount.model.Transaction;
 import com.ncsgab.currentaccount.repository.AccountRepository;
 import com.ncsgab.currentaccount.repository.CustomerRepository;
 import com.ncsgab.currentaccount.service.AccountService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -26,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountDto createAccount(NewAccountRequest createAccountRequest) {
         return customerRepository.findById(createAccountRequest.customerId())
                 .map(customer -> {
@@ -34,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
                     Account account = Account.builder()
                             .balance(initialCredit)
                             .customer(customer)
+                            .transactions(new HashSet<>())
                             .build();
 
                     if (initialCredit.compareTo(BigDecimal.ZERO) > 0) {

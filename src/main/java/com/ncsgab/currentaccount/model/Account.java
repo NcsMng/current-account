@@ -3,7 +3,7 @@ package com.ncsgab.currentaccount.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -14,7 +14,9 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"customer"})
+@ToString(callSuper = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Account extends BaseEntity<Long> {
 
     private BigDecimal balance = BigDecimal.ZERO;
@@ -23,7 +25,8 @@ public class Account extends BaseEntity<Long> {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Transaction> transactions = new HashSet<>();
 
 

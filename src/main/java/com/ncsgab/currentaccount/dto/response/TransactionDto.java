@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public record TransactionDto(
         String id,
         BigDecimal amount,
+        AccountDto account,
         LocalDateTime transactionDate,
         String notes
 ) {
