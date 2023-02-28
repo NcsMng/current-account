@@ -8,6 +8,5 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {AccountMapper.class})
 public interface CustomerMapper {
     @Mapping(target = "creationDate", source = "creationTime")
-    @Mapping(target = "accounts", qualifiedByName = "accountToDtoWithoutFather")
     CustomerDto entityToDto(Customer entity);
 }
