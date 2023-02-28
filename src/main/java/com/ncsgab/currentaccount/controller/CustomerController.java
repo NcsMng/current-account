@@ -3,6 +3,7 @@ package com.ncsgab.currentaccount.controller;
 import com.ncsgab.currentaccount.dto.response.CustomerDto;
 import com.ncsgab.currentaccount.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<CustomerDto>> getAllCustomers() {
         log.debug("NEW GET REQUEST TO /v1/customer");
         Set<CustomerDto> customers = customerService.getAllCustomer();
@@ -31,7 +32,7 @@ public class CustomerController {
                 .ok(customers);
     }
 
-    @GetMapping("/{customerId}")
+    @GetMapping(path = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long customerId) {
         log.debug("NEW GET REQUEST TO /v1/customer/{}", customerId);
         CustomerDto customer = customerService.getCustomerById(customerId);

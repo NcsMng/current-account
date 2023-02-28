@@ -5,5 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record NewAccountRequest(@NotNull(message = "customerId is required") Long customerId, @Min(value = 0, message = "Initial crdit must be greater than 0") BigDecimal initialCredit) {
+public record NewAccountRequest(@NotNull(message = "customerId is required") Long customerId,
+                                @Min(value = 0, message = "Initial credit must be greater or equal to 0") BigDecimal initialCredit) {
 }

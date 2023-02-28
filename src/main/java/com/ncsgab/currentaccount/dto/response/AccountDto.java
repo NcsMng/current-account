@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public record AccountDto(
-        String id,
+        Long id,
         BigDecimal balance,
         LocalDateTime creationDate,
         CustomerDto customer,

@@ -5,6 +5,7 @@ import com.ncsgab.currentaccount.dto.response.AccountDto;
 import com.ncsgab.currentaccount.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +22,12 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createAccount(@Valid @RequestBody NewAccountRequest request) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AccountDto> createAccount(@Valid @RequestBody NewAccountRequest request) {
         log.debug("NEW POST REQUEST TO /v1/account");
         AccountDto createdAccount = accountService.createAccount(request);
         log.debug("SENDING RESPONSE FROM /v1/account: {}", createdAccount);
-        return ResponseEntity.ok("");
+        return ResponseEntity
+                .ok(createdAccount);
     }
 }

@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), e.getMessage());
 
         GenericResponse<ErrorMessage> response = new GenericResponse<>(errorMessage);
-        log.warn("Sending response with httpStatus -> {} and body -> {}", HttpStatus.OK, response);
+        log.warn("Sending response with httpStatus -> {} and body -> {}", HttpStatus.NOT_FOUND, response);
         return ResponseEntity.ok(response);
     }
 }
