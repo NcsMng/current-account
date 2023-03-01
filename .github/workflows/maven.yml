@@ -13,7 +13,7 @@ on:
     branches: [ "main" ]
 env:
   # Use docker.io for Docker Hub if empty
-  REPOSITORY: current-account
+  REPOSITORY: NcsMng
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
