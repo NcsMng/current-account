@@ -11,6 +11,12 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
+env:
+  # Use docker.io for Docker Hub if empty
+  REPOSITORY: current-account
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
@@ -28,6 +34,18 @@ jobs:
         cache: maven
         server-id: github
         settings-path: ${{ github.workspace }}
+    
+    - name: Setup Docker buildx
+      uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
+      with:
+        install: true
+        
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+    
     - name: Build native image with maven
       run: mvn spring-boot:build-image -P native
     
@@ -35,3 +53,8 @@ jobs:
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
+
+    - name: Push Docker Image to Artifact Registry
+      run: |-
+            docker tag $IMAGE_NAME:latest gchr.io/$REPOSITORY/$IMAGE_NAME:latest
+            docker push ghcr.io/$REPOSITORY/$IMAGE_NAME:latest
