@@ -53,11 +53,6 @@ jobs:
     - name: Build native image with maven
       run: mvn spring-boot:build-image -P native
     
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-
     - name: Push Docker Image to Artifact Registry
       run: |-
             docker tag $IMAGE_NAME:latest gchr.io/$REPOSITORY/$IMAGE_NAME:latest
