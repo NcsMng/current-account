@@ -42,10 +42,7 @@ POST /v1/account - creates a new account for existing customer
 - H2 in memory database  
 - JUnit 5
 - Cucumber
-- ReactJS for frontend
 
-- nginx
-- React Bootstrap
 ## Prerequisites
 
 - Docker
@@ -54,10 +51,15 @@ POST /v1/account - creates a new account for existing customer
 Pull Docker images from GitHub Packages:
 ```bash
 docker pull ghcr.io/ncsmng/current-account:latest
-docker pull ghcr.io/ncsmng/current-account-fe:sha-c384090
 ```
 To run the pulled image locally using Docker:
 ```bash
 docker run -p 8080:8080 ghcr.io/ncsmng/current-account:latest
-docker run -p 80:80 ghcr.io/ncsmng/current-account-fe:sha-c384090
+```
+## Api-Docs and Swagger
+```bash
+http://localhost:8080/v3/api-docs
+```
+```bash
+http://localhost:8080/swagger-ui.html
 ```
