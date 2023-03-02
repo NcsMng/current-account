@@ -47,7 +47,7 @@ POST /v1/account - creates a new account for existing customer
 
 - Docker
 
-## Run & Build
+## Pull & Run
 Pull Docker images from GitHub Packages:
 ```bash
 docker pull ghcr.io/ncsmng/current-account:latest
