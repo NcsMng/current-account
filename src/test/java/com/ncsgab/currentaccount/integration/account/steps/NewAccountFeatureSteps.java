@@ -32,13 +32,13 @@ public class NewAccountFeatureSteps {
         this.objectMapper = objectMapper;
     }
 
-    @Given("customers exist in db")
+    @Given("customer exists in db for account creation")
     public void init_customer() {
-        Customer customer = customerRepository.save(new Customer("Mario", "Rossi", new HashSet<>()));
+        Customer customer = customerRepository.save(new Customer("Luca", "Bianchi", new HashSet<>()));
         customerId = customer.getId();
     }
 
-    @When("client calls endpoint {string} with request {string}")
+    @When("client calls endpoint for new account {string} with request {string}")
     public void client_calls(String endpoint, String newAccountRequestJSON) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         NewAccountRequest newAccountRequest = objectMapper.readValue(newAccountRequestJSON, NewAccountRequest.class);
@@ -46,13 +46,13 @@ public class NewAccountFeatureSteps {
                 .postForEntity(String.format("http://localhost:%s/%s", randomServerPort, endpoint), newAccountRequest, AccountDto.class);
     }
 
-    @Then("entity status code is {int}")
+    @Then("status code from new account is {int}")
     public void client_receives(int statusCode) {
         assertEquals(statusCode, entity.getStatusCode().value());
     }
 
     @And("client gets created account with correct id")
-    public void client_receives_customer() {
+    public void client_receives_account() {
         assertNotNull(entity.getBody());
         assertEquals(customerId, entity.getBody().id());
     }

@@ -36,7 +36,7 @@ public class GetCustomersFeatureSteps {
         size = customerRepository.count();
     }
 
-    @When("client calls endpoint {string}")
+    @When("client calls get customers endpoint {string}")
     public void client_calls(String endpoint) {
         RestTemplate restTemplate = new RestTemplate();
 

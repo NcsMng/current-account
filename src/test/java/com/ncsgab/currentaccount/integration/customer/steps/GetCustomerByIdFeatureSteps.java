@@ -34,14 +34,14 @@ public class GetCustomerByIdFeatureSteps {
         id = customer.getId();
     }
 
-    @When("client calls endpoint {string}")
+    @When("client calls customer by id endpoint {string}")
     public void client_calls(String endpoint) {
         RestTemplate restTemplate = new RestTemplate();
         entity = restTemplate
                 .getForEntity(String.format("http://localhost:%s/%s/%s", randomServerPort, endpoint, id), CustomerDto.class);
     }
 
-    @Then("response status code is {int}")
+    @Then("response status code from customer by id is {int}")
     public void client_receives(int statusCode) {
         assertEquals(statusCode, entity.getStatusCode().value());
     }
